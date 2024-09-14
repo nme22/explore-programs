@@ -8,8 +8,9 @@ import {
   ChevronsUpDownIcon,
   ChevronUpIcon,
 } from "lucide-react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import { forwardRef } from "react";
+
+import type { ComponentPropsWithoutRef, ElementRef } from "react";
 
 export const Select = SelectPrimitive.Root;
 export const SelectGroup = SelectPrimitive.Group;
