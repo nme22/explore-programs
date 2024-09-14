@@ -4,25 +4,18 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Label as LabelPrimitiveRoot } from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import {
+import type {
   ComponentPropsWithoutRef,
-  createContext,
   ElementRef,
-  forwardRef,
   HTMLAttributes,
-  useContext,
-  useId,
 } from "react";
-import {
-  Controller,
-  ControllerProps,
-  FieldPath,
-  FieldValues,
-  FormProvider,
-  useFormContext,
-} from "react-hook-form";
+import { createContext, forwardRef, useContext, useId } from "react";
+import type { ControllerProps, FieldPath, FieldValues } from "react-hook-form";
+import { Controller, FormProvider, useFormContext } from "react-hook-form";
 
-export const Form = FormProvider;
+type FormItemContextValue = {
+  id: string;
+};
 
 type FormFieldContextValue<
   TFieldValues extends FieldValues = FieldValues,
@@ -31,30 +24,15 @@ type FormFieldContextValue<
   name: TName;
 };
 
-export const FormFieldContext = createContext<FormFieldContextValue>(
+export const Form = FormProvider;
+
+const FormFieldContext = createContext<FormFieldContextValue>(
   {} as FormFieldContextValue,
 );
 
-type FormItemContextValue = {
-  id: string;
-};
-
-export const FormItemContext = createContext<FormItemContextValue>(
+const FormItemContext = createContext<FormItemContextValue>(
   {} as FormItemContextValue,
 );
-
-export const FormField = <
-  TFieldValues extends FieldValues = FieldValues,
-  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({
-  ...props
-}: ControllerProps<TFieldValues, TName>) => {
-  return (
-    <FormFieldContext.Provider value={{ name: props.name }}>
-      <Controller {...props} />
-    </FormFieldContext.Provider>
-  );
-};
 
 export const useFormField = () => {
   const fieldContext = useContext(FormFieldContext);
@@ -77,6 +55,19 @@ export const useFormField = () => {
     formMessageId: `${id}-form-item-message`,
     ...fieldState,
   };
+};
+
+export const FormField = <
+  TFieldValues extends FieldValues = FieldValues,
+  TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
+  ...props
+}: ControllerProps<TFieldValues, TName>) => {
+  return (
+    <FormFieldContext.Provider value={{ name: props.name }}>
+      <Controller {...props} />
+    </FormFieldContext.Provider>
+  );
 };
 
 export const FormItem = forwardRef<
