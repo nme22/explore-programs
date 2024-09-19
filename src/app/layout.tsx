@@ -23,7 +23,14 @@ export default function Layout({
   return (
     <html lang="en">
       <ClerkProvider>
-        <body className={cn("antialiased", inter.className)}>{children}</body>
+        <body
+          className={cn(
+            "antialiased bg-background text-foreground",
+            inter.className,
+          )}
+        >
+          {children}
+        </body>
       </ClerkProvider>
     </html>
   );
