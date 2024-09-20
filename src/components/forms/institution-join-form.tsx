@@ -72,9 +72,9 @@ export const InstitutionJoinForm = () => {
   >({
     resolver: zodResolver(createInstitutionFormSchema),
     defaultValues: {
-      name: "",
-      websiteUrl: "",
-      domainName: "",
+      name: "Test",
+      websiteUrl: "https://test.com",
+      domainName: "test",
     },
   });
 
@@ -83,11 +83,11 @@ export const InstitutionJoinForm = () => {
   >({
     resolver: zodResolver(createInstitutionAdminFormSchema),
     defaultValues: {
-      emailAddress: "",
-      department: "",
-      firstName: "",
-      lastName: "",
-      password: "",
+      firstName: "Kyle",
+      lastName: "Oliva",
+      emailAddress: "kecoliva@gmail.com",
+      department: "it",
+      password: "Daok0?kaeritai!",
     },
   });
 
@@ -165,7 +165,9 @@ export const InstitutionJoinForm = () => {
             },
           });
 
-          replace(`http://${institution.domainName}.localhost:3000/dashboard`);
+          replace(
+            `http://${institution.domainName}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}/dashboard`,
+          );
         }
       }
     } catch (err) {
