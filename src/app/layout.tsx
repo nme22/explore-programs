@@ -30,6 +30,7 @@ export default function Layout({
           )}
         >
           {children}
+          <p>Test is this here?</p>
         </body>
       </html>
     </ClerkProvider>

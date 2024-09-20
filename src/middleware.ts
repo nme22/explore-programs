@@ -8,13 +8,13 @@ const subdomainMiddleware = (req: NextRequest) => {
 
   if (!hostname) return NextResponse.next();
 
-  if (
-    hostname.includes("---") &&
-    hostname.endsWith(`.${process.env.NEXT_PUBLIC_VERCEL_DEPLOYMENT_SUFFIX}`)
-  )
-    hostname = `${hostname.split("---")[0]}.${
-      process.env.NEXT_PUBLIC_ROOT_DOMAIN
-    }`;
+  // if (
+  //   hostname.includes("---") &&
+  //   hostname.endsWith(`.${process.env.NEXT_PUBLIC_VERCEL_DEPLOYMENT_SUFFIX}`)
+  // )
+  // hostname = `${hostname.split("---")[0]}.${
+  //   process.env.NEXT_PUBLIC_ROOT_DOMAIN
+  // }`;
 
   const searchParams = req.nextUrl.searchParams.toString();
 
@@ -30,11 +30,7 @@ const subdomainMiddleware = (req: NextRequest) => {
   return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url));
 };
 
-export default clerkMiddleware((auth, req) => {
-  // if (isProtectedRoute(req)) auth().protect();
-
-  return subdomainMiddleware(req);
-});
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
