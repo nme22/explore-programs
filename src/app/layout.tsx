@@ -21,8 +21,8 @@ export default function Layout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <ClerkProvider>
+    <ClerkProvider>
+      <html lang="en">
         <body
           className={cn(
             "antialiased bg-background text-foreground",
@@ -31,7 +31,7 @@ export default function Layout({
         >
           {children}
         </body>
-      </ClerkProvider>
-    </html>
+      </html>
+    </ClerkProvider>
   );
 }
